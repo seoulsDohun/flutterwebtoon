@@ -10,26 +10,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<WebtoonModel> webtoons = [];
-  bool isLoading = true;
-
-  void waitForWebtoons() async {
-    webtoons = await ApiService.getTodaysToons();
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    waitForWebtoons();
-  }
+  Future<List<WebtoonModel>> webtoons = ApiService.getTodaysToons();
 
   @override
   Widget build(BuildContext context) {
-    print(webtoons);
-    print(isLoading);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -42,7 +26,21 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontSize: 26),
         ),
       ),
-      body: Container(),
+      body: FutureBuilder(
+        future: webtoons,
+        builder: (context, data) {
+          if (data.hasData) {
+            return ListView(
+              children: [
+                for (var webtoon in data.data!) Text(webtoon.title),
+              ],
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }
