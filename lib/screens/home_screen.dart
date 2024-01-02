@@ -31,14 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
         future: webtoons,
         builder: (context, data) {
           if (data.hasData) {
-            return ListView.builder(
-              itemCount: data.data!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(data.data![index].title),
-                );
-              },
-            );
+            return ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: data.data!.length,
+                itemBuilder: (context, index) {
+                  return Text(data.data![index].title);
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    width: 20,
+                  );
+                });
           }
           return const Center(
             child: CircularProgressIndicator(),
