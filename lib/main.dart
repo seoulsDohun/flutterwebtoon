@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterwebtoon/service/api_service.dart';
+import 'package:flutterwebtoon/screens/home_screen.dart';
+import 'package:flutterwebtoon/services/api_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,30 +9,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  void apiTest() async {
-    ApiService apiService = ApiService();
-    await apiService.getTodaysToons();
-  }
+  void apiTest() async {}
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: apiTest,
-                  icon: const Icon(Icons.ac_unit_outlined),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    return const MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
