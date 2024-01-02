@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutterwebtoon/models/webtoon_model.dart';
 import 'package:flutterwebtoon/services/api_service.dart';
 
@@ -30,10 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
         future: webtoons,
         builder: (context, data) {
           if (data.hasData) {
-            return ListView(
-              children: [
-                for (var webtoon in data.data!) Text(webtoon.title),
-              ],
+            return ListView.builder(
+              itemCount: data.data!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(data.data![index].title),
+                );
+              },
             );
           }
           return const Center(
