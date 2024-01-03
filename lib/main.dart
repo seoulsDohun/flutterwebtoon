@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterwebtoon/screens/home_screen.dart';
-import 'package:flutterwebtoon/services/api_service.dart';
 
 void main() {
   runApp(const MyApp());
